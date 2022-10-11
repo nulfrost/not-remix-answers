@@ -13,6 +13,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.3",
     "@netlify/functions": "^1.0.0",
     "@prisma/client": "^4.4.0",
     "@remix-run/netlify": "^1.7.2",
