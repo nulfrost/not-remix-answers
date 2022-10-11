@@ -8,6 +8,13 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/server": "^11.10.0",
+    "@mantine/core": "^5.5.4",
+    "@mantine/hooks": "^5.5.4",
+    "@mantine/modals": "^5.5.4",
+    "@mantine/notifications": "^5.5.4",
+    "@mantine/remix": "^5.5.4",
     "@netlify/functions": "^1.0.0",
     "@prisma/client": "^4.4.0",
     "@remix-run/netlify": "^1.7.2",
