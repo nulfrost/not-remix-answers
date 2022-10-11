@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -7,8 +7,14 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { MantineProvider, createEmotionCache } from "@mantine/core";
-import { StylesPlaceholder } from "@mantine/remix";
+import tailwindCSS from "~/styles/tailwind.css";
+
+export const links: LinksFunction = () => [
+  {
+    rel: "stylesheet",
+    href: tailwindCSS,
+  },
+];
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -16,24 +22,19 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-createEmotionCache({ key: "mantine" });
-
 export default function App() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <html lang="en">
-        <head>
-          <StylesPlaceholder />
-          <Meta />
-          <Links />
-        </head>
-        <body>
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-        </body>
-      </html>
-    </MantineProvider>
+    <html lang="en">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <Outlet />
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
+      </body>
+    </html>
   );
 }
