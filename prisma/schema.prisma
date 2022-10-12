@@ -9,3 +9,53 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  user_id    Int      @id @default(autoincrement())
+  email      String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  profile Profile?
+
+  @@map("user")
+}
+
+model Profile {
+  profile_id        Int      @id @default(autoincrement())
+  first_name        String
+  connected_account String
+  photo             String
+  points            String
+  verified          Boolean  @default(false)
+  created_at        DateTime @default(now())
+  updated_at        DateTime @default(now())
+
+  user      User   @relation(fields: [userEmail], references: [email])
+  userEmail String @unique
+
+  @@map("profile")
+}
+
+model Question {
+  question_id Int       @id @default(autoincrement())
+  title       String
+  body        String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now())
+  category    Category? @relation(fields: [category_id], references: [category_id])
+  category_id Int?
+
+  @@map("question")
+}
+
+model Category {
+  category_id Int      @id @default(autoincrement())
+  name        String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+
+  question Question[]
+
+  @@map("category")
+}
