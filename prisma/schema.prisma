@@ -15,8 +15,7 @@ model User {
   email      String   @unique
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-
-  profile Profile?
+  profile    Profile?
 
   @@map("user")
 }
@@ -34,19 +33,62 @@ model Profile {
   user      User   @relation(fields: [userEmail], references: [email])
   userEmail String @unique
 
+  question      Question[]
+  comment       Comment[]
+  questionLikes QuestionLikes[]
+  commentLikes  CommentLikes[]
+
   @@map("profile")
 }
 
 model Question {
-  question_id Int       @id @default(autoincrement())
-  title       String
-  body        String
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @default(now())
-  category    Category? @relation(fields: [category_id], references: [category_id])
-  category_id Int?
+  question_id   Int             @id @default(autoincrement())
+  title         String
+  body          String
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now())
+  category      Category?       @relation(fields: [category_id], references: [category_id])
+  category_id   Int?
+  author        Profile?        @relation(fields: [profile_id], references: [profile_id], onDelete: Cascade)
+  profile_id    Int?
+  comment       Comment[]
+  questionLikes QuestionLikes[]
 
   @@map("question")
+}
+
+model QuestionLikes {
+  question    Question @relation(fields: [question_id], references: [question_id])
+  question_id Int
+  author      Profile  @relation(fields: [profile_id], references: [profile_id])
+  profile_id  Int
+
+  @@id([profile_id, question_id])
+}
+
+model CommentLikes {
+  comment    Comment @relation(fields: [comment_id], references: [comment_id])
+  comment_id Int
+  author     Profile @relation(fields: [profile_id], references: [profile_id])
+  profile_id Int
+
+  @@id([comment_id, profile_id])
+}
+
+model Comment {
+  comment_id Int      @id @default(autoincrement())
+  title      String
+  body       String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  author       Profile?       @relation(fields: [profile_id], references: [profile_id], onDelete: Cascade)
+  profile_id   Int?
+  question     Question?      @relation(fields: [question_id], references: [question_id])
+  question_id  Int?
+  commentLikes CommentLikes[]
+
+  @@map("comment")
 }
 
 model Category {
