@@ -25,8 +25,7 @@ model Profile {
   first_name        String
   connected_account String
   photo             String
-  points            String
-  verified          Boolean  @default(false)
+  is_verified       Boolean  @default(false)
   created_at        DateTime @default(now())
   updated_at        DateTime @default(now())
 
