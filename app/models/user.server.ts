@@ -1,10 +1,9 @@
 import { GitHubProfile } from "remix-auth-socials";
 import prisma from "~/db.server";
-import primsa from "~/db.server";
 
-export async function createOrUpdateUser(profile: GitHubProfile) {
+export async function createOrReturnUser(profile: GitHubProfile) {
   // is this email already registered?
-  const user = await primsa.user.findFirst({
+  const user = await prisma.user.findFirst({
     where: {
       email: profile?.emails[0].value,
     },
