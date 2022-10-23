@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  user_id    Int      @id @default(autoincrement())
+  id         String   @id @default(uuid())
   email      String   @unique
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -21,7 +21,7 @@ model User {
 }
 
 model Profile {
-  profile_id        Int      @id @default(autoincrement())
+  id                String   @id @default(uuid())
   first_name        String
   connected_account String
   photo             String
@@ -41,15 +41,15 @@ model Profile {
 }
 
 model Question {
-  question_id   Int             @id @default(autoincrement())
+  id            String          @id @default(uuid())
   title         String
   body          String
   created_at    DateTime        @default(now())
   updated_at    DateTime        @default(now())
-  category      Category?       @relation(fields: [category_id], references: [category_id])
-  category_id   Int?
-  author        Profile?        @relation(fields: [profile_id], references: [profile_id], onDelete: Cascade)
-  profile_id    Int?
+  category      Category?       @relation(fields: [category_id], references: [id])
+  category_id   String?
+  author        Profile?        @relation(fields: [profile_id], references: [id], onDelete: Cascade)
+  profile_id    String?
   comment       Comment[]
   questionLikes QuestionLikes[]
 
@@ -57,44 +57,44 @@ model Question {
 }
 
 model QuestionLikes {
-  question    Question @relation(fields: [question_id], references: [question_id])
-  question_id Int
-  author      Profile  @relation(fields: [profile_id], references: [profile_id])
-  profile_id  Int
+  question    Question @relation(fields: [question_id], references: [id])
+  question_id String
+  author      Profile  @relation(fields: [profile_id], references: [id])
+  profile_id  String
 
   @@id([profile_id, question_id])
 }
 
 model CommentLikes {
-  comment    Comment @relation(fields: [comment_id], references: [comment_id])
-  comment_id Int
-  author     Profile @relation(fields: [profile_id], references: [profile_id])
-  profile_id Int
+  comment    Comment @relation(fields: [comment_id], references: [id])
+  comment_id String
+  author     Profile @relation(fields: [profile_id], references: [id])
+  profile_id String
 
   @@id([comment_id, profile_id])
 }
 
 model Comment {
-  comment_id Int      @id @default(autoincrement())
+  id         String   @id @default(uuid())
   title      String
   body       String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
-  author       Profile?       @relation(fields: [profile_id], references: [profile_id], onDelete: Cascade)
-  profile_id   Int?
-  question     Question?      @relation(fields: [question_id], references: [question_id])
-  question_id  Int?
+  author       Profile?       @relation(fields: [profile_id], references: [id], onDelete: Cascade)
+  profile_id   String?
+  question     Question?      @relation(fields: [question_id], references: [id])
+  question_id  String?
   commentLikes CommentLikes[]
 
   @@map("comment")
 }
 
 model Category {
-  category_id Int      @id @default(autoincrement())
-  name        String
-  created_at  DateTime @default(now())
-  updated_at  DateTime @default(now())
+  id         String   @id @default(uuid())
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 
   question Question[]
 

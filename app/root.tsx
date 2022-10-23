@@ -1,4 +1,4 @@
-import { json, LinksFunction, LoaderArgs, MetaFunction } from "@remix-run/node";
+import { LinksFunction, LoaderArgs, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -6,11 +6,12 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
 } from "@remix-run/react";
 import tailwindCSS from "~/styles/tailwind.css";
 import { Navbar } from "~/components/global";
 import { authenticator } from "./services/auth.server";
+import { Profile } from "@prisma/client";
+import { superjson, useSuperLoaderData } from "~/utils/data";
 
 export const links: LinksFunction = () => [
   {
@@ -21,16 +22,17 @@ export const links: LinksFunction = () => [
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Not Remix Answers | Ask your wildest questions",
   viewport: "width=device-width,initial-scale=1",
 });
 
 export async function loader({ request }: LoaderArgs) {
-  const user = await authenticator.isAuthenticated(request);
-  console.log(user);
-  return json(user);
+  const user = (await authenticator.isAuthenticated(request)) as Profile;
+  return superjson({ user });
 }
 export default function App() {
+  const { user } = useSuperLoaderData<typeof loader>();
+
   return (
     <html lang="en" className="h-full">
       <head>
@@ -38,7 +40,7 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
-        <Navbar />
+        <Navbar user={user} />
         <Outlet />
         <ScrollRestoration />
         <Scripts />

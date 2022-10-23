@@ -1,12 +1,8 @@
 import { Authenticator } from "remix-auth";
 import { sessionStorage } from "~/services/session.server";
-import {
-  GitHubProfile,
-  GitHubStrategy,
-  SocialsProvider,
-} from "remix-auth-socials";
+import { GitHubStrategy, SocialsProvider } from "remix-auth-socials";
 import invariant from "tiny-invariant";
-import { Profile } from "@prisma/client";
+import type { Profile } from "@prisma/client";
 
 invariant(
   process.env.GITHUB_CLIENT_ID,
@@ -17,9 +13,7 @@ invariant(
   "Please generate and add your github secret to your .env file"
 );
 
-type User = GitHubProfile | Profile;
-
-export let authenticator = new Authenticator<User>(sessionStorage);
+export let authenticator = new Authenticator<Partial<Profile>>(sessionStorage);
 
 authenticator.use(
   new GitHubStrategy(
