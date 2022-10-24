@@ -76,9 +76,12 @@ export function Navbar(props: NavbarProps) {
             </li>
           </ul>
         ) : (
-          <button className="px-3 py-2 text-sm text-white duration-150 bg-blue-500 rounded-md hover:bg-blue-600">
+          <Link
+            to="/login"
+            className="px-3 py-2 text-sm text-white duration-150 bg-blue-500 rounded-md hover:bg-blue-600"
+          >
             Log in
-          </button>
+          </Link>
         )}
       </nav>
     </header>
