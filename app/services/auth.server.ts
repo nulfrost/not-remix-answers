@@ -1,8 +1,12 @@
-import type { Profile } from "@prisma/client";
+import type { Profile, User } from "@prisma/client";
 import { Authenticator } from "remix-auth";
 import { GitHubStrategy, SocialsProvider } from "remix-auth-socials";
 import invariant from "tiny-invariant";
-import { createOrReturnUser } from "~/models/user.server";
+import {
+  createUser,
+  getUserByEmail,
+  getUserProfile,
+} from "~/models/user.server";
 import { sessionStorage } from "~/services/session.server";
 
 invariant(
@@ -24,9 +28,14 @@ authenticator.use(
       callbackURL: `http://localhost:3000/auth/${SocialsProvider.GITHUB}/callback`,
     },
     async ({ profile }) => {
-      const user = await createOrReturnUser(profile);
+      const user = await getUserByEmail(profile.emails[0].value);
+      if (!user) {
+        return await createUser(profile);
+      }
 
-      return user;
+      const userProfile = await getUserProfile(profile?.emails[0].value);
+
+      return userProfile as Profile;
     }
   )
 );

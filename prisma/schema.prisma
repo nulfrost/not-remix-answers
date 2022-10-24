@@ -29,8 +29,8 @@ model Profile {
   created_at        DateTime @default(now())
   updated_at        DateTime @default(now())
 
-  user      User   @relation(fields: [userEmail], references: [email])
-  userEmail String @unique
+  user       User   @relation(fields: [user_email], references: [email], onDelete: Cascade)
+  user_email String @unique
 
   question      Question[]
   comment       Comment[]
