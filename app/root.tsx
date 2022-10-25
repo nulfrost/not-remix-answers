@@ -6,12 +6,15 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
+  useParams,
 } from "@remix-run/react";
 import tailwindCSS from "~/styles/tailwind.css";
 import { Navbar, Sidebar } from "~/components/global";
 import { authenticator } from "./services/auth.server";
 import { superjson, useSuperLoaderData } from "~/utils/data";
 import { getCategories } from "./models/category.server";
+import { Profile } from "@prisma/client";
 
 export const links: LinksFunction = () => [
   {
@@ -28,7 +31,7 @@ export const meta: MetaFunction = () => ({
 
 export async function loader({ request }: LoaderArgs) {
   let [user, categories] = await Promise.all([
-    authenticator.isAuthenticated(request),
+    authenticator.isAuthenticated(request) as unknown as Profile,
     getCategories(),
   ]);
 
@@ -36,6 +39,8 @@ export async function loader({ request }: LoaderArgs) {
 }
 export default function App() {
   const { user, categories } = useSuperLoaderData<typeof loader>();
+
+  const location = useLocation();
 
   return (
     <html lang="en" className="h-full">
@@ -46,7 +51,10 @@ export default function App() {
       <body className="flex flex-col h-full">
         <Navbar user={user} />
         <main className="flex flex-1 w-full px-5 mx-auto max-w-7xl">
-          <Sidebar categories={categories} />
+          {location.pathname === "/account" ||
+            (location.pathname === "/leaderboard" ? null : (
+              <Sidebar categories={categories} />
+            ))}
           <Outlet />
         </main>
         <ScrollRestoration />
