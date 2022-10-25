@@ -12,6 +12,9 @@
     "start": "cross-env NODE_ENV=production netlify dev",
     "prepare": "husky install"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.12",
@@ -43,6 +46,7 @@
     "npm-run-all": "^4.1.5",
     "prisma": "^4.4.0",
     "tailwindcss": "^3.1.8",
+    "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
   },
   "engines": {

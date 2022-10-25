@@ -8,10 +8,10 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import tailwindCSS from "~/styles/tailwind.css";
-import { Navbar } from "~/components/global";
+import { Navbar, Sidebar } from "~/components/global";
 import { authenticator } from "./services/auth.server";
-import { Profile } from "@prisma/client";
 import { superjson, useSuperLoaderData } from "~/utils/data";
+import { getCategories } from "./models/category.server";
 
 export const links: LinksFunction = () => [
   {
@@ -27,11 +27,15 @@ export const meta: MetaFunction = () => ({
 });
 
 export async function loader({ request }: LoaderArgs) {
-  const user = (await authenticator.isAuthenticated(request)) as Profile;
-  return superjson({ user });
+  let [user, categories] = await Promise.all([
+    authenticator.isAuthenticated(request),
+    getCategories(),
+  ]);
+
+  return superjson({ user, categories });
 }
 export default function App() {
-  const { user } = useSuperLoaderData<typeof loader>();
+  const { user, categories } = useSuperLoaderData<typeof loader>();
 
   return (
     <html lang="en" className="h-full">
@@ -39,9 +43,12 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="h-full">
+      <body className="flex flex-col h-full">
         <Navbar user={user} />
-        <Outlet />
+        <main className="flex flex-1 w-full px-5 mx-auto max-w-7xl">
+          <Sidebar categories={categories} />
+          <Outlet />
+        </main>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

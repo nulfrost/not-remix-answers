@@ -1,7 +1,7 @@
 export default function Index() {
   return (
-    <div>
+    <section className="flex-1">
       <p>wock</p>
-    </div>
+    </section>
   );
 }

@@ -10,8 +10,8 @@ export type NavbarProps = {
 export function Navbar(props: NavbarProps) {
   const submit = useSubmit();
   return (
-    <header>
-      <nav className="flex items-center justify-between px-5 py-7">
+    <header className="mb-4 border-b border-gray-200">
+      <nav className="flex items-center justify-between px-5 py-2 mx-auto max-w-7xl">
         <Link to="/">Not Remix Answers</Link>
         {props?.user ? (
           <ul className="flex items-center gap-5">
@@ -78,7 +78,7 @@ export function Navbar(props: NavbarProps) {
         ) : (
           <Link
             to="/login"
-            className="px-3 py-2 text-sm text-white duration-150 bg-blue-500 rounded-md hover:bg-blue-600"
+            className="py-2 text-sm font-bold text-white duration-150 bg-blue-500 rounded-md px-7 hover:bg-blue-600"
           >
             Log in
           </Link>
