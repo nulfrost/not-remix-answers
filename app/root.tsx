@@ -40,6 +40,8 @@ export async function loader({ request }: LoaderArgs) {
 export default function App() {
   const { user, categories } = useSuperLoaderData<typeof loader>();
 
+  let excludeSidebarRoutes = ["/account", "/leaderboard", "/login"];
+
   const location = useLocation();
 
   return (
@@ -51,10 +53,9 @@ export default function App() {
       <body className="flex flex-col h-full">
         <Navbar user={user} />
         <main className="flex flex-1 w-full px-5 mx-auto max-w-7xl">
-          {location.pathname === "/account" ||
-            (location.pathname === "/leaderboard" ? null : (
-              <Sidebar categories={categories} />
-            ))}
+          {excludeSidebarRoutes.includes(location.pathname) ? null : (
+            <Sidebar categories={categories} />
+          )}
           <Outlet />
         </main>
         <ScrollRestoration />

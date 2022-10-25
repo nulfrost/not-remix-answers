@@ -2,7 +2,7 @@ import { Form } from "@remix-run/react";
 
 export default function Login() {
   return (
-    <section className="text-center">
+    <section className="w-full text-center">
       <h1 className="mt-16 text-2xl font-bold">Log in to Not Remix Answers</h1>
       <Form action="/auth/github" method="post" className="mt-6">
         <button
