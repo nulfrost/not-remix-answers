@@ -1,3 +1,7 @@
 export default function Leaderboard() {
-  return <div>leaderboard</div>;
+  return (
+    <section>
+      <h1 className="text-3xl font-bold">Leaderboard</h1>
+    </section>
+  );
 }

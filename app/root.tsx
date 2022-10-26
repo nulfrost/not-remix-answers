@@ -40,7 +40,13 @@ export async function loader({ request }: LoaderArgs) {
 export default function App() {
   const { user, categories } = useSuperLoaderData<typeof loader>();
 
-  let excludeSidebarRoutes = ["/account", "/leaderboard", "/login"];
+  let excludeSidebarRoutes = [
+    "/account",
+    "/leaderboard",
+    "/login",
+    "/posts",
+    "/posts/new",
+  ];
 
   const location = useLocation();
 
