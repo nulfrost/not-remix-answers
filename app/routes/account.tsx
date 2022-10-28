@@ -14,7 +14,7 @@ export async function loader({ request }: LoaderArgs) {
 export default function Account() {
   const user = useUser();
   return (
-    <section className="w-1/2 px-2 xl:px-0">
+    <section className="w-full px-2 xl:px-0">
       <h1 className="text-3xl font-bold">Account</h1>
       <div className="w-full px-5 py-2 mt-4 bg-white rounded-md shadow-md">
         <div className="pb-2 mb-2 border-b border-gray-200">

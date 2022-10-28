@@ -52,7 +52,7 @@ export function Navbar(props: NavbarProps) {
                       {[
                         { label: "My Posts", path: "/posts" },
                         { label: "Account", path: "/account" },
-                        { label: "Leaderboard", path: "/leaderboard" },
+                        // { label: "Leaderboard", path: "/leaderboard" },
                       ].map(({ label, path }) => (
                         <Menu.Item key={JSON.stringify({ label, path })}>
                           <Link
