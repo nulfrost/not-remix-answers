@@ -56,9 +56,9 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="flex flex-col h-full">
+      <body className="flex flex-col h-full bg-gray-100">
         <Navbar user={user} />
-        <main className="flex flex-1 w-full px-5 mx-auto max-w-7xl">
+        <main className="flex flex-1 w-full mx-auto mt-4 bg-gray-100 max-w-7xl">
           {excludeSidebarRoutes.includes(location.pathname) ? null : (
             <Sidebar categories={categories} />
           )}

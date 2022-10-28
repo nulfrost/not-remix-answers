@@ -10,8 +10,8 @@ export type NavbarProps = {
 export function Navbar(props: NavbarProps) {
   const submit = useSubmit();
   return (
-    <header className="mb-4 border-b border-gray-200">
-      <nav className="flex items-center justify-between px-5 py-2 mx-auto max-w-7xl">
+    <header className="px-2 bg-white border-b border-gray-200 xl:px-0">
+      <nav className="flex items-center justify-between py-2 mx-auto max-w-7xl">
         <Link to="/" className="font-bold ">
           Not Remix Answers
         </Link>

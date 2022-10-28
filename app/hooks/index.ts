@@ -18,7 +18,6 @@ export function useUser() {
     return undefined;
   }
 
-  // TODO: fix types
   // @ts-ignore
   return data?.json?.user;
 }
