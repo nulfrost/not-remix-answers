@@ -7,7 +7,7 @@ type SidebarProps = {
 
 export function Sidebar(props: SidebarProps) {
   return (
-    <aside className="flex flex-col gap-2 w-min">
+    <aside className="flex flex-col gap-2">
       <nav>
         <ul>
           {props.categories.map((category) => (

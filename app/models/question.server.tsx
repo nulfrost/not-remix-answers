@@ -25,3 +25,32 @@ export async function createQuestion(
     },
   });
 }
+
+type QuestionInput = {
+  category: Category["name"];
+};
+
+export async function getQuestions({ category }: QuestionInput) {
+  return prisma.question.findMany({
+    where: {
+      category: {
+        name: category || undefined,
+      },
+    },
+    include: {
+      author: {
+        select: {
+          first_name: true,
+        },
+      },
+      category: {
+        select: {
+          name: true,
+        },
+      },
+    },
+    orderBy: {
+      created_at: "desc",
+    },
+  });
+}
