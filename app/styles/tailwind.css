@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.1.8 | MIT License | https://tailwindcss.com
+! tailwindcss v3.2.1 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -410,6 +410,12 @@ video {
   height: auto;
 }
 
+/* Make elements with the HTML hidden attribute stay hidden by default */
+
+[hidden] {
+  display: none;
+}
+
 [type='text'],[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -470,7 +476,6 @@ select {
   background-size: 1.5em 1.5em;
   padding-right: 2.5rem;
   -webkit-print-color-adjust: exact;
-     color-adjust: exact;
           print-color-adjust: exact;
 }
 
@@ -481,7 +486,6 @@ select {
   background-size: initial;
   padding-right: 0.75rem;
   -webkit-print-color-adjust: unset;
-     color-adjust: unset;
           print-color-adjust: unset;
 }
 
@@ -491,7 +495,6 @@ select {
           appearance: none;
   padding: 0;
   -webkit-print-color-adjust: exact;
-     color-adjust: exact;
           print-color-adjust: exact;
   display: inline-block;
   vertical-align: middle;
@@ -769,10 +772,6 @@ select {
   margin-top: 0.25rem;
 }
 
-.mr-auto {
-  margin-right: auto;
-}
-
 .ml-auto {
   margin-left: auto;
 }
@@ -807,10 +806,6 @@ select {
 
 .w-full {
   width: 100%;
-}
-
-.w-1\/2 {
-  width: 50%;
 }
 
 .w-20 {
@@ -981,11 +976,6 @@ select {
   padding-right: 1.75rem;
 }
 
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -1102,8 +1092,7 @@ select {
 }
 
 .hover\:underline:hover {
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
+  text-decoration-line: underline;
 }
 
 .focus\:border-indigo-300:focus {
@@ -1144,38 +1133,12 @@ select {
   outline-offset: 2px;
 }
 
-.disabled\:bg-blue-200:disabled {
-  --tw-bg-opacity: 1;
-  background-color: rgb(191 219 254 / var(--tw-bg-opacity));
-}
-
-.disabled\:bg-blue-300:disabled {
-  --tw-bg-opacity: 1;
-  background-color: rgb(147 197 253 / var(--tw-bg-opacity));
-}
-
 .disabled\:bg-blue-400:disabled {
   --tw-bg-opacity: 1;
   background-color: rgb(96 165 250 / var(--tw-bg-opacity));
 }
 
-@media (min-width: 768px) {
-  .md\:w-1\/2 {
-    width: 50%;
-  }
-}
-
-@media (min-width: 1024px) {
-  .lg\:w-1\/2 {
-    width: 50%;
-  }
-}
-
 @media (min-width: 1280px) {
-  .xl\:w-1\/2 {
-    width: 50%;
-  }
-
   .xl\:px-0 {
     padding-left: 0px;
     padding-right: 0px;
