@@ -26,15 +26,13 @@ export async function createQuestion(
   });
 }
 
-type QuestionInput = {
-  category: Category["name"];
-};
+type QuestionInput = Category["name"];
 
-export async function getQuestions({ category }: QuestionInput) {
+export async function getQuestions(category: QuestionInput) {
   return prisma.question.findMany({
     where: {
       category: {
-        name: category || undefined,
+        name: category ?? undefined,
       },
     },
     include: {
@@ -46,6 +44,11 @@ export async function getQuestions({ category }: QuestionInput) {
       category: {
         select: {
           name: true,
+        },
+      },
+      _count: {
+        select: {
+          comment: true,
         },
       },
     },
