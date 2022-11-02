@@ -1,13 +1,14 @@
-import { Question } from "@prisma/client";
-import { LoaderArgs } from "@remix-run/node";
 import { superjson, useSuperLoaderData } from "~/utils/data";
 import { getQuestions } from "~/models/question.server";
+import { QuestionCard } from "~/components/ui";
 import { Link } from "@remix-run/react";
 
-export async function loader({ params }: LoaderArgs) {
-  const category = params.category as string;
+export async function loader() {
+  const questions = await getQuestions();
 
-  const questions = await getQuestions(category);
+  if (!questions.length) {
+    throw new Response("No questions!", { status: 404 });
+  }
 
   return superjson({ questions });
 }
@@ -16,45 +17,28 @@ export default function Index() {
   const { questions } = useSuperLoaderData<typeof loader>();
 
   return (
-    <section className="bg-gray-100">
+    <section className="flex-1 bg-gray-100">
       <div>
         {questions.map((question) => (
-          <Question key={question.id} {...question} />
+          <QuestionCard key={question.id} {...question} />
         ))}
       </div>
     </section>
   );
 }
 
-type QuestionProps = Exclude<Question, "created_at" | "updated_at"> & {
-  category: { name: string } | null;
-} & { author?: { first_name?: string } | null } & {
-  _count: { comment: number };
-};
-
-function Question(props: QuestionProps) {
+export function CatchBoundary() {
   return (
-    <article className="px-4 py-3 bg-white border border-gray-200 first:rounded-t-md last:rounded-b-md">
-      <h2 className="mb-2 text-lg font-bold">
-        <Link to={`/questions/${props.id}`} className="hover:underline">
-          {props.title}
-        </Link>
-      </h2>
-      <p className="mb-3 text-sm line-clamp-3">{props.body}</p>
-      <footer className="text-sm">
-        <span className="block text-gray-500">
-          Posted by {props.author?.first_name} on{" "}
-          <time
-            dateTime={
-              new Date(props.created_at).toISOString() as unknown as string
-            }
-          >
-            {new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(
-              new Date(props.created_at)
-            )}
-          </time>
-        </span>
-      </footer>
-    </article>
+    <div className="flex flex-col items-center flex-1">
+      <h1 className="mb-4 text-xl font-bold">
+        Hmm there doesn't seem to be anything here..
+      </h1>
+      <Link
+        to="/questions/new"
+        className="px-3 py-2 text-sm text-white duration-150 bg-blue-500 rounded-md hover:bg-blue-600"
+      >
+        Post a question
+      </Link>
+    </div>
   );
 }

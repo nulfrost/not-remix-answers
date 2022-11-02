@@ -5,32 +5,32 @@ async function main() {
   const categories = await prisma.category.createMany({
     data: [
       {
-        name: "Arts",
+        name: "arts",
       },
       {
-        name: "Beauty",
+        name: "beauty",
       },
-      { name: "Business" },
+      { name: "business" },
       {
-        name: "Cars",
+        name: "cars",
       },
-      { name: "Computers" },
+      { name: "computers" },
       {
-        name: "Electronics",
-      },
-      {
-        name: "Dining",
+        name: "electronics",
       },
       {
-        name: "Education",
+        name: "dining",
       },
       {
-        name: "Entertainment",
+        name: "education",
       },
-      { name: "Environment" },
-      { name: "Health" },
-      { name: "News" },
-      { name: "Science" },
+      {
+        name: "entertainment",
+      },
+      { name: "environment" },
+      { name: "health" },
+      { name: "news" },
+      { name: "science" },
     ],
   });
   console.log(categories);

@@ -28,11 +28,11 @@ export async function createQuestion(
 
 type QuestionInput = Category["name"];
 
-export async function getQuestions(category: QuestionInput) {
+export async function getQuestions(category?: QuestionInput) {
   return prisma.question.findMany({
     where: {
       category: {
-        name: category ?? undefined,
+        name: category,
       },
     },
     include: {

@@ -15,7 +15,7 @@ export function Sidebar(props: SidebarProps) {
             <li key={category.id}>
               <Link
                 to={`/category/${category?.name?.toLowerCase()}`}
-                className="text-sm text-gray-600 hover:underline hover:text-blue-700 focus-visible:border-4 focus-visible:border-dashed focus-visible:border-blue-700 focus-visible:outline-none"
+                className="inline-block text-sm text-gray-600 capitalize hover:underline hover:text-blue-700 focus-visible:outline-4 focus-visible:outline-dashed focus-visible:outline-blue-700"
               >
                 {category.name}
               </Link>
