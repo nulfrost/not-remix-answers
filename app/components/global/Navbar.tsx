@@ -19,7 +19,7 @@ export function Navbar(props: NavbarProps) {
           <ul className="flex items-center gap-5">
             <li>
               <Link
-                to="/posts/new"
+                to="/questions/new"
                 className="flex gap-1 px-3 py-2 text-sm text-white duration-150 bg-blue-500 rounded-md hover:bg-blue-600"
               >
                 <PlusIcon className="inline-block w-5 h-5" />

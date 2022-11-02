@@ -45,7 +45,7 @@ export default function App() {
     "/leaderboard",
     "/login",
     "/posts",
-    "/posts/new",
+    "/questions/new",
   ];
 
   const location = useLocation();

@@ -36,7 +36,7 @@ function Question(props: QuestionProps) {
   return (
     <article className="px-4 py-3 bg-white border border-gray-200 first:rounded-t-md last:rounded-b-md">
       <h2 className="mb-2 text-lg font-bold">
-        <Link to={`/question/${props.id}`} className="hover:underline">
+        <Link to={`/questions/${props.id}`} className="hover:underline">
           {props.title}
         </Link>
       </h2>

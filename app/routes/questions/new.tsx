@@ -1,7 +1,12 @@
 import { conform, parse, useFieldset, useForm } from "@conform-to/react";
 import { formatError, validate } from "@conform-to/zod";
 import { ActionArgs, json, redirect } from "@remix-run/node";
-import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useTransition,
+} from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 import { getCategories } from "~/models/category.server";
@@ -10,9 +15,11 @@ import { authenticator } from "~/services/auth.server";
 
 const schema = z.object({
   title: z
-    .string()
-    .min(20, "A title for your post is required.")
-    .max(100, "Your title is too long, please shorten it."),
+    .string({
+      required_error: "A title for your post is required.",
+    })
+    .min(20, { message: "Your title must be at minimum 20 characters long" })
+    .max(100, { message: "Your title is too long, please shorten it." }),
   body: z
     .string()
     .min(100, "A body for this post is required.")
@@ -60,10 +67,12 @@ export async function action({ request }: ActionArgs) {
 
 export default function New() {
   const { categories } = useLoaderData<typeof loader>();
-  const state = useActionData();
+  const state = useActionData<typeof action>();
+  const transition = useTransition();
+
+  const submitting = transition.state === "submitting";
 
   const form = useForm<z.infer<typeof schema>>({
-    mode: "server-validation",
     initialReport: "onBlur",
     state,
     onValidate({ formData }) {
@@ -84,7 +93,18 @@ export default function New() {
       >
         <fieldset>
           <legend>{form.error}</legend>
-          <label htmlFor="title">Title</label>
+          <div>
+            <label
+              id="title"
+              htmlFor="title"
+              className="after:content-['*'] after:text-red-600 mr-4"
+            >
+              Title
+            </label>
+            <span id="titleError" className="text-sm text-red-600">
+              {title.error}
+            </span>
+          </div>
           <input
             {...conform.input(title.config)}
             type="text"
@@ -93,9 +113,23 @@ export default function New() {
             required
             autoFocus
             aria-required
+            aria-invalid={title?.error !== "" ? "true" : "false"}
+            aria-labelledby="title"
+            aria-describedby="titleError"
             className="block w-full mt-1 mb-4 border-gray-300 rounded-md shadow-sm resize-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           />
-          <label htmlFor="body">Question</label>
+          <div>
+            <label
+              id="body"
+              htmlFor="body"
+              className="after:content-['*'] after:text-red-600 mr-4"
+            >
+              Question
+            </label>
+            <span id="bodyError" className="text-sm text-red-600">
+              {body.error}
+            </span>
+          </div>
           <textarea
             name="body"
             id="body"
@@ -104,6 +138,9 @@ export default function New() {
             placeholder="What's on your mind?"
             required
             aria-required
+            aria-invalid={body?.error !== "" ? "true" : "false"}
+            aria-labelledby="body"
+            aria-describedby="bodyError"
             className="block w-full mt-1 mb-4 border-gray-300 rounded-md shadow-sm resize-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             {...conform.textarea(body.config)}
           />
@@ -122,7 +159,7 @@ export default function New() {
           </select>
         </fieldset>
         <button className="px-3 py-2 mt-4 ml-auto text-white duration-150 bg-blue-500 rounded-md hover:bg-blue-600 disabled:bg-blue-400">
-          Post question
+          {submitting ? "Creating your question" : "Post question"}
         </button>
       </Form>
     </section>
