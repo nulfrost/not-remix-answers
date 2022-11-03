@@ -46,6 +46,7 @@ export default function App() {
     "/login",
     "/posts",
     "/questions/new",
+    "/questions",
   ];
 
   const location = useLocation();

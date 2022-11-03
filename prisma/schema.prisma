@@ -50,7 +50,7 @@ model Question {
   category_id   String?
   author        Profile?        @relation(fields: [profile_id], references: [id], onDelete: Cascade)
   profile_id    String?
-  comment       Comment[]
+  comments      Comment[]
   questionLikes QuestionLikes[]
 
   @@map("question")

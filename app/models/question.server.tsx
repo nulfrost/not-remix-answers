@@ -48,12 +48,37 @@ export async function getQuestions(category?: QuestionInput) {
       },
       _count: {
         select: {
-          comment: true,
+          comments: true,
         },
       },
     },
     orderBy: {
       created_at: "desc",
+    },
+  });
+}
+
+export async function getSingleQuestion(id: Question["id"]) {
+  return prisma.question.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      title: true,
+      body: true,
+      comments: true,
+      created_at: true,
+      author: {
+        select: {
+          photo: true,
+          first_name: true,
+        },
+      },
+      category: {
+        select: {
+          name: true,
+        },
+      },
     },
   });
 }

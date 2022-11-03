@@ -1,10 +1,11 @@
 import { Link } from "@remix-run/react";
 import { Question } from "@prisma/client";
+import { formatDistanceToNow } from "date-fns";
 
 type QuestionProps = Exclude<Question, "created_at" | "updated_at"> & {
   category: { name: string } | null;
 } & { author?: { first_name?: string } | null } & {
-  _count: { comment: number };
+  _count: { comments: number };
 };
 
 export function QuestionCard(props: QuestionProps) {
@@ -17,7 +18,7 @@ export function QuestionCard(props: QuestionProps) {
       </h2>
       <p className="mb-3 text-sm line-clamp-3">{props.body}</p>
       <footer className="text-sm text-gray-500">
-        <span>{props?._count?.comment} answers</span> &middot;{" "}
+        <span>{props?._count?.comments} answers</span> &middot;{" "}
         <Link
           to={`/category/${props.category?.name}`}
           className="text-blue-500 capitalize hover:text-blue-600 hover:underline"
@@ -30,9 +31,9 @@ export function QuestionCard(props: QuestionProps) {
             new Date(props.created_at).toISOString() as unknown as string
           }
         >
-          {new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(
-            new Date(props.created_at)
-          )}
+          {formatDistanceToNow(new Date(props.created_at), {
+            addSuffix: true,
+          })}
         </time>
       </footer>
     </article>
