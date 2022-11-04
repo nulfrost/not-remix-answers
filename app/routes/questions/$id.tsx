@@ -21,6 +21,8 @@ export default function Question() {
   return (
     <div>
       <article>
+        <h1>{question?.title}</h1>
+        <p>{question?.body}</p>
         <div>
           <img
             src={question?.author?.photo}
@@ -28,8 +30,6 @@ export default function Question() {
           />
           <p>{question?.author?.first_name}</p>
         </div>
-        <h1>{question?.title}</h1>
-        <p>{question?.body}</p>
       </article>
     </div>
   );

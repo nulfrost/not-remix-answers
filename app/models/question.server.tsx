@@ -49,6 +49,7 @@ export async function getQuestions(category?: QuestionInput) {
       _count: {
         select: {
           comments: true,
+          questionLikes: true,
         },
       },
     },

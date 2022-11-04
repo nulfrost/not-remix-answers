@@ -29,7 +29,7 @@ export default function Index() {
 
 export function CatchBoundary() {
   return (
-    <div className="flex flex-col items-center flex-1">
+    <section className="flex flex-col items-center flex-1">
       <h1 className="mb-4 text-xl font-bold">
         Hmm there doesn't seem to be anything here..
       </h1>
@@ -39,6 +39,6 @@ export function CatchBoundary() {
       >
         Post a question
       </Link>
-    </div>
+    </section>
   );
 }

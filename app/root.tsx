@@ -1,20 +1,19 @@
+import { Profile } from "@prisma/client";
 import { LinksFunction, LoaderArgs, MetaFunction } from "@remix-run/node";
 import {
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-  useLocation,
-  useParams,
+    Links,
+    LiveReload,
+    Meta,
+    Outlet,
+    Scripts,
+    ScrollRestoration,
+    useLocation
 } from "@remix-run/react";
-import tailwindCSS from "~/styles/tailwind.css";
 import { Navbar, Sidebar } from "~/components/global";
-import { authenticator } from "./services/auth.server";
+import tailwindCSS from "~/styles/tailwind.css";
 import { superjson, useSuperLoaderData } from "~/utils/data";
 import { getCategories } from "./models/category.server";
-import { Profile } from "@prisma/client";
+import { authenticator } from "./services/auth.server";
 
 export const links: LinksFunction = () => [
   {
