@@ -83,3 +83,18 @@ export async function getSingleQuestion(id: Question["id"]) {
     },
   });
 }
+
+export async function likeQuestion({
+  profile_id,
+  question_id,
+}: {
+  profile_id: string;
+  question_id: string;
+}) {
+  return prisma.questionLikes.create({
+    data: {
+      profile_id,
+      question_id,
+    },
+  });
+}

@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 import { Question } from "@prisma/client";
 import { formatDistanceToNow } from "date-fns";
-import { LikeButton } from "~/resources/LikeButton";
+import { Like } from "~/routes/resources/like";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 
 type QuestionProps = Exclude<Question, "created_at" | "updated_at"> & {
@@ -13,9 +13,9 @@ type QuestionProps = Exclude<Question, "created_at" | "updated_at"> & {
 export function QuestionCard(props: QuestionProps) {
   return (
     <article className="flex items-center gap-4 px-4 py-3 bg-white border border-gray-200 first:rounded-t-md last:rounded-b-md">
-      <div>
-        <LikeButton />
-      </div>
+      {/* <div className="text-center">
+        <Like _count={props._count} question_id={props.id} />
+      </div> */}
       <div className="flex-1">
         <div className="flex">
           <h2 className="mb-2 text-lg font-bold">
