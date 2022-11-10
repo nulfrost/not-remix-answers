@@ -12,7 +12,7 @@ type LikeButtonProps = {
 };
 
 export async function action({ request }: ActionArgs) {
-  const user = authenticator.isAuthenticated(request);
+  const user = await authenticator.isAuthenticated(request);
   if (!user) return redirect("/login");
 
   console.log(request.method);

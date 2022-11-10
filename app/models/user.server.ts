@@ -1,5 +1,4 @@
 import { User } from "@prisma/client";
-import { useMatches } from "@remix-run/react";
 import { GitHubProfile } from "remix-auth-socials";
 import prisma from "~/db.server";
 

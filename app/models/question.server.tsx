@@ -67,7 +67,21 @@ export async function getSingleQuestion(id: Question["id"]) {
     select: {
       title: true,
       body: true,
-      comments: true,
+      comments: {
+        select: {
+          id: true,
+          body: true,
+          created_at: true,
+          author: {
+            select: {
+              first_name: true,
+            },
+          },
+        },
+        orderBy: {
+          created_at: "desc",
+        },
+      },
       created_at: true,
       author: {
         select: {

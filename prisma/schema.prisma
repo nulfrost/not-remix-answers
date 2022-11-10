@@ -76,7 +76,6 @@ model CommentLikes {
 
 model Comment {
   id         String   @id @default(uuid())
-  title      String
   body       String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
