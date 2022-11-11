@@ -132,19 +132,15 @@ export default function Question() {
               >
                 <article>
                   <h3 className="font-bold">{comment?.author?.first_name}</h3>
-                  <p className="pb-4">{comment?.body}</p>
-                  <footer className="flex justify-end pt-4 text-sm text-gray-500 border-t border-gray-200">
-                    <p>
-                      Posted{" "}
-                      <time
-                        dateTime={new Date(comment?.created_at).toISOString()}
-                      >
-                        {formatDistanceToNow(new Date(comment?.created_at), {
-                          addSuffix: true,
-                        })}
-                      </time>
-                    </p>
-                  </footer>
+                  <time
+                    dateTime={new Date(comment?.created_at).toISOString()}
+                    className="inline-block mb-3 text-xs text-gray-500"
+                  >
+                    {formatDistanceToNow(new Date(comment?.created_at), {
+                      addSuffix: true,
+                    })}
+                  </time>
+                  <p className="text-sm">{comment?.body}</p>
                 </article>
               </li>
             ))
