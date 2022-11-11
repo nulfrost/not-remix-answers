@@ -25,7 +25,7 @@ authenticator.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: `http://localhost:3000/auth/${SocialsProvider.GITHUB}/callback`,
+      callbackURL: `https://not-remix-answers.netlify.app/auth/${SocialsProvider.GITHUB}/callback`,
     },
     async ({ profile }) => {
       const user = await getUserByEmail(profile.emails[0].value);
