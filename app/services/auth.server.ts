@@ -1,4 +1,4 @@
-import type { Profile, User } from "@prisma/client";
+import type { Profile } from "@prisma/client";
 import { Authenticator } from "remix-auth";
 import { GitHubStrategy, SocialsProvider } from "remix-auth-socials";
 import invariant from "tiny-invariant";
@@ -25,6 +25,7 @@ authenticator.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      // TODO: this should be either a local url or prod one
       callbackURL: `https://not-remix-answers.netlify.app/auth/${SocialsProvider.GITHUB}/callback`,
     },
     async ({ profile }) => {

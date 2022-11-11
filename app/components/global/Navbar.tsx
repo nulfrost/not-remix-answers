@@ -27,7 +27,7 @@ export function Navbar(props: NavbarProps) {
               </Link>
             </li>
             <li>
-              <Menu as="div" className="relative">
+              {/* <Menu as="div" className="relative">
                 {({ open }) => (
                   <>
                     <Menu.Button className="flex items-center gap-2">
@@ -75,7 +75,7 @@ export function Navbar(props: NavbarProps) {
                     </Menu.Items>
                   </>
                 )}
-              </Menu>
+              </Menu> */}
             </li>
           </ul>
         ) : (
