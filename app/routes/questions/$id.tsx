@@ -1,7 +1,6 @@
 import { ActionArgs, json, LoaderArgs } from "@remix-run/node";
 import {
   Form,
-  Link,
   useLoaderData,
   useNavigate,
   useTransition,
@@ -30,8 +29,8 @@ export async function action({ request, params }: ActionArgs) {
   const formData = await request.formData();
 
   const question_id = params.id;
-  const comment = formData.get("comment");
-  const profile_id = formData.get("profile_id");
+  const comment = formData.get("comment") as string;
+  const profile_id = formData.get("profile_id") as string;
 
   if (!question_id || !comment || !profile_id) {
     throw new Response("There was an error creating the comment", {
@@ -131,7 +130,9 @@ export default function Question() {
                 className="px-3 py-4 bg-white border border-gray-200 shadow-sm xl:w-1/2 first:rounded-t-md last:rounded-b-md"
               >
                 <article>
-                  <h3 className="font-bold">{comment?.author?.first_name}</h3>
+                  <h3 className="mb-0 font-bold">
+                    {comment?.author?.first_name}
+                  </h3>
                   <time
                     dateTime={new Date(comment?.created_at).toISOString()}
                     className="inline-block mb-3 text-xs text-gray-500"
@@ -150,3 +151,11 @@ export default function Question() {
     </div>
   );
 }
+
+// type CommentProps = {
+//   first_name
+// }
+
+// function Comment(props: CommentProps) {
+
+// }
