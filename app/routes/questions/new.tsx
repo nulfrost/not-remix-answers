@@ -1,6 +1,6 @@
 import { conform, parse, useFieldset, useForm } from "@conform-to/react";
 import { formatError, validate } from "@conform-to/zod";
-import { ActionArgs, json, redirect } from "@remix-run/node";
+import { ActionArgs, json, LoaderArgs, redirect } from "@remix-run/node";
 import {
   Form,
   useActionData,
@@ -27,7 +27,11 @@ const schema = z.object({
   category: z.string(),
 });
 
-export async function loader() {
+export async function loader({ request }: LoaderArgs) {
+  await authenticator.isAuthenticated(request, {
+    failureRedirect: "/",
+  });
+
   const categories = await getCategories();
   return json({ categories });
 }
